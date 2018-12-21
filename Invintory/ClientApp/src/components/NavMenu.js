@@ -9,14 +9,14 @@ export class NavMenu extends Component {
 
   render() {
     return (
-      <Navbar inverse fixedTop fluid collapseOnSelect>
+      <Navbar inverse fixedTop fluid >
         <Navbar.Header>
           <Navbar.Brand>
             <Link to={'/'}>Invintory</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>
+        <Navbar.Collapse >
           <Nav>
             <LinkContainer to={'/'} exact>
               <NavItem>
@@ -33,6 +33,11 @@ export class NavMenu extends Component {
                 <Glyphicon glyph='th-list' /> Fetch data
               </NavItem>
             </LinkContainer>
+            <LinkContainer to={'/search'}>
+              <NavItem>
+                  <Glyphicon glyph='search' /> Search
+              </NavItem>
+                    </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
