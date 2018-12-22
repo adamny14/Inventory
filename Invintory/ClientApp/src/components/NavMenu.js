@@ -7,40 +7,42 @@ import './NavMenu.css';
 export class NavMenu extends Component {
   displayName = NavMenu.name
 
-  render() {
-    return (
-      <Navbar inverse fixedTop fluid >
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to={'/'}>Invintory</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse >
-          <Nav>
-            <LinkContainer to={'/'} exact>
-              <NavItem>
-                <Glyphicon glyph='home' /> Home
+    render() {
+        return (
+            <nav class="navbar navbar-inverse navrbar-fixed-top">
+                <div class="container-fluid">
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <Link to={'/'}>Inventory</Link>
+                        </Navbar.Brand>
+                        <Navbar.Toggle />
+                    </Navbar.Header>
+                    <Navbar.Collapse >
+                        <Nav>
+                            <LinkContainer to={'/'} exact>
+                                <NavItem>
+                                    <Glyphicon glyph='home' /> Home
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/counter'}>
-              <NavItem>
-                <Glyphicon glyph='education' /> Counter
+                            </LinkContainer>
+                            <LinkContainer to={'/counter'}>
+                                <NavItem>
+                                    <Glyphicon glyph='education' /> Counter
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/fetchdata'}>
-              <NavItem>
-                <Glyphicon glyph='th-list' /> Fetch data
+                            </LinkContainer>
+                            <LinkContainer to={'/fetchdata'}>
+                                <NavItem>
+                                    <Glyphicon glyph='th-list' /> Fetch data
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/search'}>
-              <NavItem>
-                  <Glyphicon glyph='search' /> Search
+                            </LinkContainer>
+                            <LinkContainer to={'/search'}>
+                                <NavItem>
+                                    <Glyphicon glyph='search' /> Search
               </NavItem>
-                    </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+                            </LinkContainer>
+                        </Nav>
+                    </Navbar.Collapse>
+                </div>
+            </nav>
     );
   }
 }

@@ -7,19 +7,23 @@ export class Layout extends Component {
 
     render() {
         return (
-            <Grid fluid>
-                <Row>
-                    <Col sm={3}>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <Col sm={12}>
                         <NavMenu />
+                        <br></br>
                     </Col>
-                </Row>
-                <Row>
-                    <Col sm={3}></Col>
-                    <Col sm={9}>
+                </div>
+                
+                    <div class="col-sm-12">
+
                         {this.props.children}
-                    </Col>
-                </Row>
-            </Grid>
+
+                    </div> 
+                    
+               
+            </div>
         );
     }
 }
