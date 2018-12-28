@@ -2,43 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Invintory.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+       
 
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        public IEnumerable<Products> ReturnProducts()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
-        }
 
-        public class WeatherForecast
-        {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            var context = new InventoryDBContext();
+            var products = context.Products.FromSql("select * from \"Products\";").ToList();
 
-            public int TemperatureF
+            var allProd = from prod in products
+                          select new { ID = prod.Id, Name = prod.Name, Company = prod.Company, Location = prod.Location, DatePurchased = prod.DatePurchased, Quantity = prod.Quantity, Color = prod.Color, Type = prod.Type };
+
+            List<Products> result = new List<Products>();
+
+            foreach(var item in allProd)
             {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
+                result.Add(new Products { Id = item.ID, Name = item.Name, Company = item.Company, Location = item.Location, DatePurchased = item.DatePurchased, Quantity = item.Quantity, Color = item.Color, Type = item.Type  });
             }
+         
+
+            IEnumerable<Products> returnedResult = result;
+
+            return returnedResult;
+
+
         }
     }
+   
+            
+        
+
+       
 }
+

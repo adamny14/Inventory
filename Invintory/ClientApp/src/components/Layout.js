@@ -8,7 +8,7 @@ export class Layout extends Component {
     render() {
         return (
 
-            <div class="container-fluid">
+            <div >
                 <div class="row">
                     <Col sm={12}>
                         <NavMenu />

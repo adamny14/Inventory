@@ -1,55 +1,62 @@
 import React, { Component } from 'react';
 
 export class FetchData extends Component {
-  displayName = FetchData.name
+    displayName = FetchData.name
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
+    constructor(props) {
+        super(props);
+        this.state = { forecasts: [], loading: true };
 
-    fetch('api/SampleData/WeatherForecasts')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ forecasts: data, loading: false });
-      });
-  }
+        fetch('api/SampleData/ReturnProducts')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ products: data, loading: false });
+            });
+    }
 
-  static renderForecastsTable(forecasts) {
-    return (
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
+    static renderForecastsTable(products) {
+        return (
+            <table className='table'>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Date Purchased</th>
+                        <th>Quantity</th>
+                        <th>Type</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map(product =>
+                        <tr key={product.Id}>
+                            <td>{product.Company}</td>
+                            <td>{product.Name}</td>
+                            <td>{product.Location}</td>
+                            <td>{product.DatePurchased}</td>
+                            <td>{product.Quantity}</td>
+                            <td>{product.Type}</td>
+                            <td>{product.Color}</td>
+                           
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        );
+    }
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+    render() {
+        let contents = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : FetchData.renderForecastsTable(this.state.products);
 
-    return (
-      <div>
-        <h1>Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
+        return (
+            <div>
+                <h1>Weather forecast</h1>
+                <p>This component demonstrates fetching data from the server.</p>
+                {contents}
+            </div>
+        );
+    }
 }

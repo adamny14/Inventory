@@ -10,7 +10,7 @@ export class Home extends Component {
                     <div class="col-sm-4">
                     </div>
                     <div class="col-sm-4">
-                        <div class="well">
+                        <div class="well" styles="text-align: center;">
                             <h1 styles="text-align: center;">Home Inventory</h1>
                             <p>This page has a basic overview of the </p>
                         </div>
