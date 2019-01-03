@@ -5,12 +5,18 @@ export class FetchData extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { forecasts: [], loading: true };
+        this.state = { products: [], loading: true };
 
-        fetch('api/SampleData/ReturnProducts')
+        fetch('api/SampleData/ReturnProducts',
+            {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            })
             .then(response => response.json())
-            .then(data => {
-                this.setState({ products: data, loading: false });
+            .then(json => {
+                this.setState({ products: json, loading: false });
             });
     }
 
@@ -30,14 +36,14 @@ export class FetchData extends Component {
                 </thead>
                 <tbody>
                     {products.map(product =>
-                        <tr key={product.Id}>
-                            <td>{product.Company}</td>
-                            <td>{product.Name}</td>
-                            <td>{product.Location}</td>
-                            <td>{product.DatePurchased}</td>
-                            <td>{product.Quantity}</td>
-                            <td>{product.Type}</td>
-                            <td>{product.Color}</td>
+                        <tr key={product.id}>
+                            <td>{product.company}</td>
+                            <td>{product.name}</td>
+                            <td>{product.location}</td>
+                            <td>{product.datePurchased}</td>
+                            <td>{product.quantity}</td>
+                            <td>{product.type}</td>
+                            <td>{product.color}</td>
                            
                         </tr>
                     )}
@@ -53,7 +59,7 @@ export class FetchData extends Component {
 
         return (
             <div>
-                <h1>Weather forecast</h1>
+                <h1>All items in the Inventory</h1>
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
             </div>
