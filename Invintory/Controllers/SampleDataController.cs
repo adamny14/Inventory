@@ -15,24 +15,25 @@ namespace Invintory.Controllers
        
 
         [HttpGet("[action]")]
-        public IEnumerable<Products> ReturnProducts()
+        public IEnumerable<Items> ReturnProducts()
         {
 
             var context = new InventoryDBContext();
-            var products = context.Products.FromSql("select * from \"Products\";").ToList();
+            var products = context.Items.FromSql("select * from \"Items\";").ToList();
 
-            var allProd = from prod in products
-                          select new { ID = prod.Id, Name = prod.Name, Company = prod.Company, Location = prod.Location, DatePurchased = prod.DatePurchased, Quantity = prod.Quantity, Color = prod.Color, Type = prod.Type };
+            var allVal = from itm in products
+                          select new { ID = itm.Id, Name = itm.Name, Company = itm.Company, Location = itm.Location, DatePurchased = itm.DatePurchased, Quantity = itm.Quantity, Color = itm.Color, Type = itm.Type, itm.Serial };
 
-            List<Products> result = new List<Products>();
+            List<Items> result = new List<Items>();
 
-            foreach(var item in allProd)
+            foreach(var item in allVal)
             {
-                result.Add(new Products { Id = item.ID, Name = item.Name, Company = item.Company, Location = item.Location, DatePurchased = item.DatePurchased, Quantity = item.Quantity, Color = item.Color, Type = item.Type  });
+                DateTime date = (DateTime) item.DatePurchased;
+                result.Add(new Items { Id = item.ID, Name = item.Name, Company = item.Company, Location = item.Location, DatePurchased = date.Date, Quantity = item.Quantity, Color = item.Color, Type = item.Type, Serial = item.Serial  });
             }
          
 
-            IEnumerable<Products> returnedResult = result;
+            IEnumerable<Items> returnedResult = result;
 
             return returnedResult;
 
