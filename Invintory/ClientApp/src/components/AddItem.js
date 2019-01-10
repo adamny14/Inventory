@@ -6,14 +6,15 @@ export class AddItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            itemName: 'A',
-            location: '',
+            itemName: '',
+            location: 'Adam\'s Room',
             dateBought: '',
-            numItems: '2',
+            numItems: '1',
             type: '',
             color: '',
             company: '',
-            serial: ''
+            serial: '',
+            selectedFile: File
 
         };
 
@@ -24,9 +25,22 @@ export class AddItem extends Component {
     }
 
     handleSubmit(event) {
-        alert('Name: ' + this.state.itemName + '\n' + 'Location: ' + this.state.location + '\n' + 'Date: ' + this.state.dateBought + '\n' + 'Quantity: ' + this.state.numItems + '\n' + 'Type: ' + this.state.type + '\n' + 'Color: ' + this.state.color + '\n' + 'Company: ' + this.state.company + '\n' + 'Serial: ' + this.state.serial + '\n' );
+       // alert('Name: ' + this.state.itemName + '\n' + 'Location: ' + this.state.location + '\n' + 'Date: ' + this.state.dateBought + '\n' + 'Quantity: ' + this.state.numItems + '\n' + 'Type: ' + this.state.type + '\n' + 'Color: ' + this.state.color + '\n' + 'Company: ' + this.state.company + '\n' + 'Serial: ' + this.state.serial + '\n' + 'File Name: ' + this.state.selectedFile + '\n');
         event.preventDefault();
+
+        const data = new FormData(event.target);
+
+        fetch('api/UploadData/Upload', {
+            method: 'POST',
+            body: data
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                this.props.history.push("/fetchData");
+            });
+
     }
+
+    
 
     handleInputChange(event) {
         const target = event.target;
@@ -57,9 +71,21 @@ export class AddItem extends Component {
                                 <input type="text" class="form-control" name="itemName" value={this.state.itemName} onChange={this.handleInputChange}/>
                                 
                             </div>
+                            
                             <div class="form-group">
                                 <label for="location">Item location:</label>
-                                <input type="text" class="form-control" name="location" onChange={this.handleInputChange}/>
+                                <select class="form-control" name="location" value={this.state.location} onChange={this.handleInputChange} >
+                                    <option>Adam's Room</option>
+                                    <option>Zoe's Room</option>
+                                    <option>Master Bedroom</option>
+                                    <option>Dining Room</option>
+                                    <option>Living Room</option>
+                                    <option>Kitchen</option>
+                                    <option>First Floor Bathroom</option>
+                                    <option>Second Floor Bathroom</option>
+                                    <option>Basement</option>
+                                    <option>Outside</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="dateBought">Date Purchased:</label>
@@ -86,8 +112,8 @@ export class AddItem extends Component {
                                 <input type="text" class="form-control" name="serial" onChange={this.handleInputChange} />
                             </div>
                             <div class="form-group">
-                                <label for="picture">Item Picture:</label>
-                                <input type="file" class="form-control" name="picture" ref={this.fileInput}/>
+                                <label for="selectedFile">Item Picture:</label>
+                                <input type="file" class="form-control" name="selectedFile" onChange={this.handleInputChange}/>
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>

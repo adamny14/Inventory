@@ -22,14 +22,14 @@ namespace Invintory.Controllers
             var products = context.Items.FromSql("select * from \"Items\";").ToList();
 
             var allVal = from itm in products
-                          select new { ID = itm.Id, Name = itm.Name, Company = itm.Company, Location = itm.Location, DatePurchased = itm.DatePurchased, Quantity = itm.Quantity, Color = itm.Color, Type = itm.Type, itm.Serial };
+                          select new { ID = itm.Id, Name = itm.Name, Company = itm.Company, Location = itm.Location, DatePurchased = itm.DatePurchased, Quantity = itm.Quantity, Color = itm.Color, Type = itm.Type, itm.Serial, itm.Photo };
 
             List<Items> result = new List<Items>();
 
             foreach(var item in allVal)
             {
                 DateTime date = (DateTime) item.DatePurchased;
-                result.Add(new Items { Id = item.ID, Name = item.Name, Company = item.Company, Location = item.Location, DatePurchased = date.Date, Quantity = item.Quantity, Color = item.Color, Type = item.Type, Serial = item.Serial  });
+                result.Add(new Items { Id = item.ID, Name = item.Name, Company = item.Company, Location = item.Location, DatePurchased = date.Date, Quantity = item.Quantity, Color = item.Color, Type = item.Type, Serial = item.Serial, Photo = item.Photo  });
             }
          
 

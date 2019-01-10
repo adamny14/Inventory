@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import './AllItems.css';
 
 export class FetchData extends Component {
     static renderForecastsTable(products) {
+     
         return (
             <div class="row">
                 <div class="col-sm-2"></div>
@@ -9,6 +11,7 @@ export class FetchData extends Component {
                     <table className='table'>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Company</th>
                                 <th>Name</th>
                                 <th>Location</th>
@@ -22,6 +25,7 @@ export class FetchData extends Component {
                         <tbody>
                             {products.map(product =>(
                                 <tr key={product.id}>
+                                    <td><img src={"data:image/jpeg;base64," + product.photo}/></td>
                                     <td>{product.company}</td>
                                     <td>{product.name}</td>
                                     <td>{product.location}</td>

@@ -22,6 +22,7 @@ namespace Invintory
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseNpgsql("Host=localhost;Database=InventoryDB;Username=postgres;Password=");
             }
         }
@@ -32,7 +33,7 @@ namespace Invintory
             {
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                    .UseNpgsqlIdentityByDefaultColumn();
 
                 entity.Property(e => e.AdditionalData)
                     .HasColumnName("Additional_Data")
@@ -46,7 +47,7 @@ namespace Invintory
 
                 entity.Property(e => e.DatePurchased)
                     .HasColumnName("Date_Purchased")
-                    .HasColumnType("date");
+                    .HasColumnType("timestamp(4) without time zone");
 
                 entity.Property(e => e.Location).HasColumnType("character varying(128)");
 
