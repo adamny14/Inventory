@@ -34,12 +34,13 @@ namespace Invintory.Controllers
                 newItem.Photo = picture;
                 var items = context.Items.Add(newItem);
                 context.SaveChanges();
-                return new { Success = true };
+                return new { Success = true, newItem.Name};
             }
             catch (Exception ex)
             {
                 return new { Success = false, ex.Message };
             }
+
         }
 
         private static Byte[] UploadFile(IFormFile file)
@@ -55,7 +56,7 @@ namespace Invintory.Controllers
             }
 
             return fileArray;
-            //TODO: You can do it what you want with you file, I just skip this step
+           
         }
 
         private static Items CreateNewItem(IFormCollection form)
@@ -64,18 +65,13 @@ namespace Invintory.Controllers
             Items newObject = new Items();
             newObject.Name = form["itemName"];
             newObject.Location = form["location"];
-            DateTime itemBought = DateTime.ParseExact(form["dateBought"], "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime itemBought = DateTime.ParseExact(form["dateBought"].ToString(), "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            newObject.DatePurchased = itemBought;
             newObject.Quantity =  Int32.Parse(form["numItems"]);
             newObject.Type = form["type"];
             newObject.Color = form["color"];
             newObject.Company = form["company"];
             newObject.Serial = form["serial"];
-
-            
-           
-           
-
-
 
             return newObject;
         }

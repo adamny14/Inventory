@@ -12,8 +12,8 @@ export class FetchData extends Component {
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Company</th>
                                 <th>Name</th>
+                                <th>Company</th>
                                 <th>Location</th>
                                 <th>Date Purchased</th>
                                 <th>Quantity</th>
@@ -26,8 +26,8 @@ export class FetchData extends Component {
                             {products.map(product =>(
                                 <tr key={product.id}>
                                     <td><img src={"data:image/jpeg;base64," + product.photo}/></td>
-                                    <td>{product.company}</td>
                                     <td>{product.name}</td>
+                                    <td>{product.company}</td>
                                     <td>{product.location}</td>
                                     <td>{product.datePurchased}</td>
                                     <td>{product.quantity}</td>

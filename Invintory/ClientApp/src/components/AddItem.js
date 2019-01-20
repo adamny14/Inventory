@@ -15,12 +15,25 @@ export class AddItem extends Component {
             company: '',
             serial: '',
             selectedFile: File
-
+           
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+
+    uploadStatus(status) {
+        if (status.success === false) {
+         
+            alert("Item not inserted, Err msg: " + status.message);
+            
+        }
+        else
+            alert("Item " + status.name + " inserted correctly");
+
 
     }
 
@@ -34,13 +47,23 @@ export class AddItem extends Component {
             method: 'POST',
             body: data
         }).then((response) => response.json())
-            .then((responseJson) => {
-                this.props.history.push("/fetchData");
+            .then(responseJson => {
+                this.uploadStatus(responseJson);
             });
 
+        this.setState({
+            itemName: '',
+            location: 'Adam\'s Room',
+            numItems: '1',
+            type: '',
+            color: '',
+            company: '',
+            serial: ''
+
+        });
+        document.getElementById("form").reset();
     }
 
-    
 
     handleInputChange(event) {
         const target = event.target;
@@ -65,7 +88,7 @@ export class AddItem extends Component {
                 <div class="row">
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
-                        <form onSubmit={this.handleSubmit}>
+                        <form id="form" onSubmit={this.handleSubmit}>
                             <div class="form-group">
                                 <label for="itemName">Item Name:</label>
                                 <input type="text" class="form-control" name="itemName" value={this.state.itemName} onChange={this.handleInputChange}/>
@@ -93,7 +116,7 @@ export class AddItem extends Component {
                             </div>
                             <div class="form-group">
                                 <label for="numItems">Number of Items:</label>
-                                <input type="number" class="form-control" name="numItems" defaultValue={this.state.numItems} onChange={this.handleInputChange} />
+                                <input type="number" class="form-control" name="numItems" value={this.state.numItems} onChange={this.handleInputChange} />
                             </div>
                             <div class="form-group">
                                 <label for="type">Item Type:</label>
@@ -101,15 +124,15 @@ export class AddItem extends Component {
                             </div>
                             <div class="form-group">
                                 <label for="color">Color:</label>
-                                <input type="text" class="form-control" name="color" onChange={this.handleInputChange} />
+                                <input type="text" class="form-control" name="color" value={this.state.color} onChange={this.handleInputChange} />
                             </div>
                             <div class="form-group">
                                 <label for="company">Company:</label>
-                                <input type="text" class="form-control" name="company" onChange={this.handleInputChange} />
+                                <input type="text" class="form-control" name="company" value={this.state.company} onChange={this.handleInputChange} />
                             </div>
                             <div class="form-group">
                                 <label for="serial">Serial Number:</label>
-                                <input type="text" class="form-control" name="serial" onChange={this.handleInputChange} />
+                                <input type="text" class="form-control" name="serial" value={this.state.serial} onChange={this.handleInputChange} />
                             </div>
                             <div class="form-group">
                                 <label for="selectedFile">Item Picture:</label>
